@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiet Words</title>
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .app {
+      width: 380px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      font-weight: normal;
+      letter-spacing: 1px;
+      margin-bottom: 22px;
+      font-size: 24px;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 12px;
+      font-size: 15px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: bold;
+      background: #c9a063;
+      color: #1a1a2e;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .quote {
+      margin-top: 24px;
+      font-size: 17px;
+      line-height: 1.7;
+      min-height: 110px;
+      opacity: 0.95;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <h1>Quiet Words</h1>
+
+  <select id="situation">
+    <option value="romantic">Romantic</option>
+    <option value="beauty">Her Beauty</option>
+    <option value="love">Love</option>
+    <option value="longing">Longing</option>
+    <option value="heartbreak">Heartbreak</option>
+    <option value="philosophy">Philosophical</option>
+    <option value="calm">Calm & Stillness</option>
+    <option value="ambition">Ambition</option>
+    <option value="hard">Hard Times</option>
+    <option value="realistic">Realistic Motivation</option>
+    <option value="inspiring">Deep Inspiration</option>
+    <option value="direct">Direct Truth</option>
+    <option value="expressive">Expressive Strength</option>
+  </select>
+
+  <button onclick="getQuote()">Give me words</button>
+
+  <div class="quote" id="quote"></div>
+</div>
+
+<script>
+  const quotes = {
+    romantic: [
+      "I don’t fall in love easily, but when I do, it feels like silence choosing a single voice.",
+      "Some hearts don’t collide, they recognize each other.",
+      "I would choose you even in rooms full of better options."
+    ],
+    beauty: [
+      "Her beauty isn’t loud; it lingers like a thought you never rush.",
+      "She doesn’t try to be beautiful — the world adjusts around her.",
+      "Even the way she listens feels like grace."
+    ],
+    love: [
+      "Love is when effort stops feeling like effort.",
+      "Real love feels steady, not dramatic.",
+      "To love is to rest without fear."
+    ],
+    longing: [
+      "I miss you in ways that don’t ask to be healed.",
+      "Some absences feel heavier than presence.",
+      "Longing is love with nowhere to go."
+    ],
+    heartbreak: [
+      "What broke you also taught you what you deserve.",
+      "Healing doesn’t erase the memory, it softens the weight.",
+      "You survived what you once thought would end you."
+    ],
+    philosophy: [
+      "We spend our lives becoming brave enough to be ourselves.",
+      "Meaning is not found, it is built quietly.",
+      "Most battles are won by those who remain gentle."
+    ],
+    calm: [
+      "Nothing needs your urgency tonight.",
+      "Stillness is not emptiness; it is clarity.",
+      "Breathe — you are not late for your life."
+    ],
+    ambition: [
+      "Move in silence; let your becoming speak later.",
+      "You are allowed to outgrow the version people expect.",
+      "Consistency is the most honest form of belief."
+    ],
+    hard: [
+      "This phase is hard because it is demanding more of you than comfort ever could.",
+      "Some days you don’t heal — you endure, and that still counts.",
+      "Survival is strength when quitting feels easier."
+    ],
+    realistic: [
+      "No one is coming to save you, and that’s where your power begins.",
+      "Progress is slow when it’s real.",
+      "Discipline matters more than motivation on tired days."
+    ],
+    inspiring: [
+      "You are still here, which means the story isn’t finished.",
+      "Even quiet persistence changes outcomes.",
+      "Your effort matters more than the applause."
+    ],
+    direct: [
+      "If you don’t choose yourself, life will choose for you.",
+      "Comfort delays growth.",
+      "Hard choices now prevent harder regrets later."
+    ],
+    expressive: [
+      "I am tired, but I am not done.",
+      "I bend, I break, I breathe — and still I move forward.",
+      "Strength doesn’t always roar; sometimes it whispers ‘again’."
+    ]
+  };
+
+  function getQuote() {
+    const situation = document.getElementById("situation").value;
+    const randomIndex = Math.floor(Math.random() * quotes[situation].length);
+    document.getElementById("quote").innerText =
+      quotes[situation][randomIndex];
+  }
+</script>
+
+</body>
+</html>
