@@ -67,7 +67,8 @@
 
 <div class="app">
   <h1>Quiet Words</h1>
-
+<input id="herMood" placeholder="Her mood (calm, playful, distant…)" />
+<input id="herNature" placeholder="Her nature (kind, strong, artistic…)" />
   <select id="situation">
     <option value="romantic">Romantic</option>
     <option value="beauty">Her Beauty</option>
@@ -85,6 +86,7 @@
   </select>
 
   <button onclick="getQuote()">Give me words</button>
+  <button onclick="describeHer()">Describe her 🌙</button>
 
   <div class="quote" id="quote"></div>
 </div>
@@ -164,6 +166,27 @@
     document.getElementById("quote").innerText =
       quotes[situation][randomIndex];
   }
+  function describeHer() {
+   const mood = document.getElementById("herMood").value.trim();
+   const nature = document.getElementById("herNature").value.trim();
+
+   if (!mood && !nature) {
+      document.getElementById("quote").innerText =
+         "She doesn’t need definition to be felt.";
+      return;
+   }
+
+   const templates = [
+      `She feels ${mood || "unspoken"} today, and her ${nature || "presence"} makes even quiet moments feel meaningful.`,
+      `There’s something ${nature || "rare"} about her — even when she’s ${mood || "silent"}, she leaves an impression.`,
+      `She carries ${mood || "stillness"} softly, and her ${nature || "way of being"} feels honest.`,
+      `Her ${nature || "energy"} shows most when she’s ${mood || "not trying"} — that’s where her beauty lives.`,
+      `She doesn’t announce herself; her ${nature || "depth"} is felt, especially when she’s ${mood || "lost in thought"}.`
+   ];
+
+   const line = templates[Math.floor(Math.random() * templates.length)];
+   document.getElementById("quote").innerText = line;
+}
 </script>
 
 </body>
