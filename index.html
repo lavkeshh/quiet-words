@@ -1,3 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiet Words</title>
+
+  <style>
+    body {
+      font-family: "Georgia", serif;
+      background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .app {
+      width: 380px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      font-weight: normal;
+      letter-spacing: 1px;
+      margin-bottom: 22px;
+      font-size: 24px;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 12px;
+      font-size: 15px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: bold;
+      background: #c9a063;
+      color: #1a1a2e;
+    }
+
+    .quote {
+      margin-top: 24px;
+      font-size: 17px;
+      line-height: 1.7;
+      min-height: 110px;
+      opacity: 0.95;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+  <h1>Quiet Words</h1>
+
+  <input id="herMood" placeholder="Her mood (calm, playful, distant…)" />
+  <input id="herNature" placeholder="Her nature (kind, strong, artistic…)" />
+
+  <select id="situation">
+    <option value="romantic">Romantic</option>
+    <option value="beauty">Her Beauty</option>
+    <option value="love">Love</option>
+    <option value="longing">Longing</option>
+    <option value="heartbreak">Heartbreak</option>
+    <option value="philosophy">Philosophical</option>
+    <option value="calm">Calm</option>
+    <option value="ambition">Ambition</option>
+    <option value="hard">Hard Times</option>
+    <option value="realistic">Realistic</option>
+    <option value="inspiring">Inspiring</option>
+    <option value="direct">Direct</option>
+    <option value="expressive">Expressive</option>
+  </select>
+
+  <button onclick="getQuote()">Give me words</button>
+  <button onclick="describeHer()">Describe her 🌙</button>
+
+  <div class="quote" id="quote"></div>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -16,7 +109,12 @@
 
   async function getQuote() {
     const situation = document.getElementById("situation").value;
-    const q = query(collection(db, "quotes"), where("category", "==", situation));
+
+    const q = query(
+      collection(db, "quotes"),
+      where("category", "==", situation)
+    );
+
     const querySnapshot = await getDocs(q);
 
     const results = [];
@@ -47,7 +145,7 @@
     }
 
     const templates = [
-      `She feels ${mood || "unspoken"} today, and her ${nature || "presence"} makes even quiet moments feel meaningful.`,
+      `She feels ${mood || "unspoken"} today, and her ${nature || "presence"} makes even quiet moments meaningful.`,
       `There’s something ${nature || "rare"} about her — even when she’s ${mood || "silent"}, she leaves an impression.`,
       `She carries ${mood || "stillness"} softly, and her ${nature || "way of being"} feels honest.`,
       `Her ${nature || "energy"} shows most when she’s ${mood || "not trying"} — that’s where her beauty lives.`,
@@ -58,3 +156,6 @@
     document.getElementById("quote").innerText = line;
   };
 </script>
+
+</body>
+</html>
