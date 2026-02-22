@@ -106,33 +106,74 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-  async function getQuote() {
-    const situation = document.getElementById("situation").value;
+window.getQuote = function () {
+  const situation = document.getElementById("situation").value;
 
-    const q = query(
-      collection(db, "quotes"),
-      where("category", "==", situation)
-    );
+  const engine = {
 
-    const querySnapshot = await getDocs(q);
+    realistic: {
+      openings: [
+        "Not everyone sees it,",
+        "It won’t look dramatic,",
+        "Nobody applauds it,",
+        "Most people misunderstand this,"
+      ],
+      truths: [
+        "discipline builds what motivation cannot.",
+        "progress feels invisible before it feels powerful.",
+        "growth happens quietly.",
+        "consistency outlives talent."
+      ],
+      punch: [
+        "Especially on the days you don’t feel like trying.",
+        "When quitting would be easier.",
+        "When no one is watching.",
+        "When comfort feels safer."
+      ]
+    },
 
-    const results = [];
-    querySnapshot.forEach((doc) => {
-      results.push(doc.data().text);
-    });
-
-    if (results.length === 0) {
-      document.getElementById("quote").innerText =
-        "No quotes yet for this category.";
-      return;
+    romantic: {
+      openings: [
+        "Love doesn’t need noise —",
+        "Some connections don’t beg for attention —",
+        "When it’s real,",
+        "True affection"
+      ],
+      truths: [
+        "it feels steady, not chaotic.",
+        "it makes silence feel safe.",
+        "it softens even strong hearts.",
+        "it rests instead of performs."
+      ],
+      punch: [
+        "Even distance cannot disturb it.",
+        "Even doubt cannot shake it.",
+        "Even pride cannot silence it.",
+        "Even time cannot weaken it."
+      ]
     }
 
-    const randomIndex = Math.floor(Math.random() * results.length);
-    document.getElementById("quote").innerText = results[randomIndex];
+  };
+
+  if (!engine[situation]) {
+    document.getElementById("quote").innerText =
+      "More emotional layers coming soon.";
+    return;
   }
 
-  window.getQuote = getQuote;
+  const data = engine[situation];
+
+  const quote =
+    random(data.openings) + " " +
+    random(data.truths) + " " +
+    random(data.punch);
+
+  document.getElementById("quote").innerText = quote;
+};
 
   window.describeHer = function () {
     const mood = document.getElementById("herMood").value.trim();
@@ -159,3 +200,4 @@
 
 </body>
 </html>
+
