@@ -75,7 +75,7 @@
     <option value="love">Love</option>
     <option value="longing">Longing</option>
     <option value="heartbreak">Heartbreak</option>
-    <option value="philosophy">Philosophical</option>
+    <option value="philosophical">Philosophical</option>
     <option value="calm">Calm</option>
     <option value="ambition">Ambition</option>
     <option value="hard">Hard Times</option>
@@ -103,121 +103,118 @@ window.getQuote = function () {
 
   const engine = {
 
+    beauty: [
+      "Her beauty is quiet — it doesn’t demand attention, it earns it.",
+      "She doesn’t try to shine — she simply exists, and light follows.",
+      "There’s something rare in the way she carries herself.",
+      "Her presence feels softer than words.",
+      "She glows most when she isn’t trying."
+    ],
+
+    love: [
+      "Love feels safe, not loud.",
+      "Real love calms the nervous system.",
+      "Love stays when ego leaves.",
+      "It’s not intensity — it’s consistency.",
+      "True love is steady."
+    ],
+
+    longing: [
+      "Missing someone is a quiet kind of ache.",
+      "Longing teaches patience in silence.",
+      "Distance doesn’t erase connection.",
+      "Some absences feel louder than presence.",
+      "You can feel someone even when they aren’t near."
+    ],
+
+    heartbreak: [
+      "Some endings echo for a long time.",
+      "Healing doesn’t follow a schedule.",
+      "Heartbreak humbles the ego.",
+      "Not every goodbye is loud.",
+      "Sometimes love leaves lessons."
+    ],
+
+    calm: [
+      "Peace is underrated strength.",
+      "Calm minds make powerful decisions.",
+      "Stillness carries clarity.",
+      "Chaos is loud — calm is controlled.",
+      "True strength feels steady."
+    ],
+
+    ambition: [
+      "Ambition whispers before it roars.",
+      "Dream quietly. Build relentlessly.",
+      "Discipline feeds ambition.",
+      "You don’t chase — you construct.",
+      "The grind shapes identity."
+    ],
+
+    hard: [
+      "Hard times reveal hidden strength.",
+      "Pressure builds resilience.",
+      "Storms don’t last — growth does.",
+      "Survival teaches perspective.",
+      "Pain often prepares."
+    ],
+
+    inspiring: [
+      "Keep going — even slowly.",
+      "Your effort matters more than applause.",
+      "Start before you feel ready.",
+      "Small wins compound.",
+      "You’re closer than you think."
+    ],
+
     realistic: [
-      "Motivation visits. Discipline stays.",
-      "Nobody applauds consistency — until it wins.",
-      "Growth is boring before it is impressive.",
-      "Progress feels invisible until it compounds.",
-      "You won’t feel ready. Start anyway.",
-      "Comfort is expensive — it charges your future.",
-      "The quiet days build the loud results.",
-      "Consistency outlives talent.",
-      "Discipline carries you when feelings collapse.",
-      "Improvement hides inside repetition."
+      "Motivation fades. Discipline stays.",
+      "Nobody sees the boring work.",
+      "Progress is repetitive.",
+      "Comfort delays growth.",
+      "Consistency wins quietly."
     ],
 
     romantic: [
-      "Love isn’t loud — it’s steady.",
-      "Real connection feels safe, not chaotic.",
-      "Some people don’t enter your life loudly — they simply stay.",
-      "Affection is softer than ego.",
-      "When it’s real, it doesn’t compete.",
-      "Love feels like home, not adrenaline.",
-      "True intimacy is quiet understanding.",
-      "Some hearts recognize each other instantly.",
-      "The right person feels calm, not confusing.",
-      "Real love rests — it doesn’t perform."
+      "Love feels safe, not chaotic.",
+      "True connection is calm.",
+      "Affection doesn’t compete.",
+      "Some hearts just understand.",
+      "Real intimacy is quiet."
     ],
 
     philosophical: [
-      "We chase clarity while fearing silence.",
-      "Time explains what emotions exaggerate.",
-      "Wisdom grows where certainty collapses.",
-      "Life rarely announces its lessons.",
-      "Meaning is built slowly.",
       "Fear shouts. Truth whispers.",
-      "Understanding requires discomfort.",
-      "Patience reveals what panic hides.",
-      "Growth begins where ego ends.",
-      "The mind complicates what the soul already knows."
-    ],
-
-    motivational: [
-      "Even slow progress is progress.",
-      "Keep showing up — especially when it’s boring.",
-      "Small effort compounds silently.",
-      "Your future is built on repeated discipline.",
-      "Keep going. Feelings change.",
-      "Consistency beats intensity.",
-      "Do it tired. Do it unsure. Just do it.",
-      "You don’t need motivation — you need decision.",
-      "Every difficult day strengthens identity.",
-      "You are building something unseen."
+      "Time exposes illusions.",
+      "Wisdom grows in silence.",
+      "Meaning takes patience.",
+      "Clarity requires discomfort."
     ],
 
     direct: [
-      "Stop waiting for perfect timing.",
-      "You already know what needs to change.",
-      "Excuses feel good — results feel better.",
-      "No one is coming to save you.",
-      "Comfort is delaying your growth.",
-      "Action removes doubt.",
-      "Fear is often imagination.",
-      "Waiting won’t make you ready.",
-      "Decide. Then move.",
-      "Discipline or regret — choose."
-    ],
-
-    deep: [
-      "Some battles are invisible but exhausting.",
-      "Not all pain makes noise.",
-      "Silence can carry heavy emotions.",
-      "The strongest people break quietly.",
-      "Healing is rarely dramatic.",
-      "Loneliness teaches clarity.",
-      "Depth is born from discomfort.",
-      "Strength grows in private moments.",
-      "Some wounds teach wisdom.",
-      "The quiet mind understands more."
+      "Stop waiting.",
+      "Act now.",
+      "Excuses delay destiny.",
+      "Discipline or regret.",
+      "Move."
     ],
 
     expressive: [
-      "Emotion is not weakness — it is depth.",
-      "Feeling deeply is a form of courage.",
-      "Some souls speak without words.",
-      "Vulnerability is rare strength.",
-      "Honesty feels heavy but freeing.",
-      "Intensity is misunderstood sensitivity.",
-      "Passion reveals character.",
+      "Feeling deeply is strength.",
+      "Vulnerability is power.",
       "Raw truth carries beauty.",
-      "Expression is silent bravery.",
-      "Soft hearts feel everything."
+      "Expression is courage.",
+      "Soft hearts are brave."
     ]
 
   };
 
-  if (!engine[situation]) {
-    document.getElementById("quote").innerText =
-      "More emotional layers coming soon.";
-    return;
-  }
-
-  const pattern = Math.floor(Math.random() * 3);
-  let quote = random(engine[situation]);
-
-  // Add irregular depth variation
-  if (pattern === 1) {
-    quote += " Especially on the days you doubt yourself.";
-  } else if (pattern === 2) {
-    quote += " And that changes everything.";
-  }
-
+  const quote = random(engine[situation]);
   document.getElementById("quote").innerText = quote;
+
 };
 
 
-
-/* ===== MOOD + NATURE ENGINE ===== */
 
 window.describeHer = function () {
 
@@ -231,27 +228,16 @@ window.describeHer = function () {
   }
 
   const variations = [
-
-    `She feels ${mood || "unspoken"} today — and her ${nature || "presence"} makes silence meaningful.`,
-
-    `There’s something ${nature || "rare"} about her. Even when she’s ${mood || "quiet"}, she leaves an impression.`,
-
-    `She carries ${mood || "stillness"} softly, and her ${nature || "depth"} doesn’t try to be noticed.`,
-
-    `Her ${nature || "energy"} shows most when she’s ${mood || "lost in thought"} — that’s where her beauty lives.`,
-
-    `She doesn’t perform her ${nature || "strength"} — it’s felt when she’s ${mood || "calm"}.`,
-
+    `She feels ${mood || "unspoken"} — and her ${nature || "presence"} makes silence meaningful.`,
+    `There’s something ${nature || "rare"} about her.`,
+    `Her ${nature || "energy"} reveals itself when she’s ${mood || "quiet"}.`,
+    `She carries ${mood || "stillness"} softly.`,
+    `Her ${nature || "strength"} doesn’t need noise.`,
     `Even in her ${mood || "silence"}, her ${nature || "warmth"} speaks.`,
-
-    `She wears her ${nature || "softness"} without apology, even when she feels ${mood || "distant"}.`,
-
-    `Her ${mood || "gentle"} moments reveal her ${nature || "realness"}.`,
-
-    `She doesn’t try to shine — her ${nature || "light"} appears when she feels ${mood || "safe"}.`,
-
-    `There’s quiet confidence in the way she feels ${mood || "present"} — her ${nature || "authenticity"} makes it beautiful.`
-
+    `She feels ${mood || "present"} — and it changes the room.`,
+    `Her ${nature || "depth"} shows when she’s ${mood || "calm"}.`,
+    `She doesn’t perform — she simply is.`,
+    `Her ${mood || "gentle"} presence feels rare.`
   ];
 
   document.getElementById("quote").innerText = random(variations);
@@ -262,5 +248,3 @@ window.describeHer = function () {
 
 </body>
 </html>
-
-
