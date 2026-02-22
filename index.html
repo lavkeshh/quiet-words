@@ -92,70 +92,107 @@
 </div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBteqOTPNw-jdFLelhiwIxUfmFXMJr6lmI",
-    authDomain: "quiet-wordsz.firebaseapp.com",
-    projectId: "quiet-wordsz",
-    storageBucket: "quiet-wordsz.appspot.com",
-    messagingSenderId: "1091680546012",
-    appId: "1:1091680546012:web:4bf9c7401303fa29349819"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  function random(arr) {
+function random(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
 window.getQuote = function () {
+
   const situation = document.getElementById("situation").value;
 
   const engine = {
 
-    realistic: {
-      openings: [
-        "Not everyone sees it,",
-        "It won’t look dramatic,",
-        "Nobody applauds it,",
-        "Most people misunderstand this,"
-      ],
-      truths: [
-        "discipline builds what motivation cannot.",
-        "progress feels invisible before it feels powerful.",
-        "growth happens quietly.",
-        "consistency outlives talent."
-      ],
-      punch: [
-        "Especially on the days you don’t feel like trying.",
-        "When quitting would be easier.",
-        "When no one is watching.",
-        "When comfort feels safer."
-      ]
-    },
+    realistic: [
+      "Motivation visits. Discipline stays.",
+      "Nobody applauds consistency — until it wins.",
+      "Growth is boring before it is impressive.",
+      "Progress feels invisible until it compounds.",
+      "You won’t feel ready. Start anyway.",
+      "Comfort is expensive — it charges your future.",
+      "The quiet days build the loud results.",
+      "Consistency outlives talent.",
+      "Discipline carries you when feelings collapse.",
+      "Improvement hides inside repetition."
+    ],
 
-    romantic: {
-      openings: [
-        "Love doesn’t need noise —",
-        "Some connections don’t beg for attention —",
-        "When it’s real,",
-        "True affection"
-      ],
-      truths: [
-        "it feels steady, not chaotic.",
-        "it makes silence feel safe.",
-        "it softens even strong hearts.",
-        "it rests instead of performs."
-      ],
-      punch: [
-        "Even distance cannot disturb it.",
-        "Even doubt cannot shake it.",
-        "Even pride cannot silence it.",
-        "Even time cannot weaken it."
-      ]
-    }
+    romantic: [
+      "Love isn’t loud — it’s steady.",
+      "Real connection feels safe, not chaotic.",
+      "Some people don’t enter your life loudly — they simply stay.",
+      "Affection is softer than ego.",
+      "When it’s real, it doesn’t compete.",
+      "Love feels like home, not adrenaline.",
+      "True intimacy is quiet understanding.",
+      "Some hearts recognize each other instantly.",
+      "The right person feels calm, not confusing.",
+      "Real love rests — it doesn’t perform."
+    ],
+
+    philosophical: [
+      "We chase clarity while fearing silence.",
+      "Time explains what emotions exaggerate.",
+      "Wisdom grows where certainty collapses.",
+      "Life rarely announces its lessons.",
+      "Meaning is built slowly.",
+      "Fear shouts. Truth whispers.",
+      "Understanding requires discomfort.",
+      "Patience reveals what panic hides.",
+      "Growth begins where ego ends.",
+      "The mind complicates what the soul already knows."
+    ],
+
+    motivational: [
+      "Even slow progress is progress.",
+      "Keep showing up — especially when it’s boring.",
+      "Small effort compounds silently.",
+      "Your future is built on repeated discipline.",
+      "Keep going. Feelings change.",
+      "Consistency beats intensity.",
+      "Do it tired. Do it unsure. Just do it.",
+      "You don’t need motivation — you need decision.",
+      "Every difficult day strengthens identity.",
+      "You are building something unseen."
+    ],
+
+    direct: [
+      "Stop waiting for perfect timing.",
+      "You already know what needs to change.",
+      "Excuses feel good — results feel better.",
+      "No one is coming to save you.",
+      "Comfort is delaying your growth.",
+      "Action removes doubt.",
+      "Fear is often imagination.",
+      "Waiting won’t make you ready.",
+      "Decide. Then move.",
+      "Discipline or regret — choose."
+    ],
+
+    deep: [
+      "Some battles are invisible but exhausting.",
+      "Not all pain makes noise.",
+      "Silence can carry heavy emotions.",
+      "The strongest people break quietly.",
+      "Healing is rarely dramatic.",
+      "Loneliness teaches clarity.",
+      "Depth is born from discomfort.",
+      "Strength grows in private moments.",
+      "Some wounds teach wisdom.",
+      "The quiet mind understands more."
+    ],
+
+    expressive: [
+      "Emotion is not weakness — it is depth.",
+      "Feeling deeply is a form of courage.",
+      "Some souls speak without words.",
+      "Vulnerability is rare strength.",
+      "Honesty feels heavy but freeing.",
+      "Intensity is misunderstood sensitivity.",
+      "Passion reveals character.",
+      "Raw truth carries beauty.",
+      "Expression is silent bravery.",
+      "Soft hearts feel everything."
+    ]
 
   };
 
@@ -165,39 +202,65 @@ window.getQuote = function () {
     return;
   }
 
-  const data = engine[situation];
+  const pattern = Math.floor(Math.random() * 3);
+  let quote = random(engine[situation]);
 
-  const quote =
-    random(data.openings) + " " +
-    random(data.truths) + " " +
-    random(data.punch);
+  // Add irregular depth variation
+  if (pattern === 1) {
+    quote += " Especially on the days you doubt yourself.";
+  } else if (pattern === 2) {
+    quote += " And that changes everything.";
+  }
 
   document.getElementById("quote").innerText = quote;
 };
 
-  window.describeHer = function () {
-    const mood = document.getElementById("herMood").value.trim();
-    const nature = document.getElementById("herNature").value.trim();
 
-    if (!mood && !nature) {
-      document.getElementById("quote").innerText =
-        "She doesn’t need definition to be felt.";
-      return;
-    }
 
-    const templates = [
-      `She feels ${mood || "unspoken"} today, and her ${nature || "presence"} makes even quiet moments meaningful.`,
-      `There’s something ${nature || "rare"} about her — even when she’s ${mood || "silent"}, she leaves an impression.`,
-      `She carries ${mood || "stillness"} softly, and her ${nature || "way of being"} feels honest.`,
-      `Her ${nature || "energy"} shows most when she’s ${mood || "not trying"} — that’s where her beauty lives.`,
-      `She doesn’t announce herself; her ${nature || "depth"} is felt, especially when she’s ${mood || "lost in thought"}.`
-    ];
+/* ===== MOOD + NATURE ENGINE ===== */
 
-    const line = templates[Math.floor(Math.random() * templates.length)];
-    document.getElementById("quote").innerText = line;
-  };
+window.describeHer = function () {
+
+  const mood = document.getElementById("herMood").value.trim();
+  const nature = document.getElementById("herNature").value.trim();
+
+  if (!mood && !nature) {
+    document.getElementById("quote").innerText =
+      "She doesn’t need definition to be felt.";
+    return;
+  }
+
+  const variations = [
+
+    `She feels ${mood || "unspoken"} today — and her ${nature || "presence"} makes silence meaningful.`,
+
+    `There’s something ${nature || "rare"} about her. Even when she’s ${mood || "quiet"}, she leaves an impression.`,
+
+    `She carries ${mood || "stillness"} softly, and her ${nature || "depth"} doesn’t try to be noticed.`,
+
+    `Her ${nature || "energy"} shows most when she’s ${mood || "lost in thought"} — that’s where her beauty lives.`,
+
+    `She doesn’t perform her ${nature || "strength"} — it’s felt when she’s ${mood || "calm"}.`,
+
+    `Even in her ${mood || "silence"}, her ${nature || "warmth"} speaks.`,
+
+    `She wears her ${nature || "softness"} without apology, even when she feels ${mood || "distant"}.`,
+
+    `Her ${mood || "gentle"} moments reveal her ${nature || "realness"}.`,
+
+    `She doesn’t try to shine — her ${nature || "light"} appears when she feels ${mood || "safe"}.`,
+
+    `There’s quiet confidence in the way she feels ${mood || "present"} — her ${nature || "authenticity"} makes it beautiful.`
+
+  ];
+
+  document.getElementById("quote").innerText = random(variations);
+
+};
+
 </script>
 
 </body>
 </html>
+
 
