@@ -56,7 +56,14 @@
       font-size: 17px;
       line-height: 1.7;
       min-height: 110px;
-      opacity: 0.95;
+      opacity: 1;
+      transition: opacity 0.25s ease;
+    }
+
+    .intensity-label {
+      margin-top: 8px;
+      font-size: 12px;
+      opacity: 0.7;
     }
   </style>
 </head>
@@ -85,141 +92,158 @@
     <option value="expressive">Expressive</option>
   </select>
 
+  <!-- INTENSITY SLIDER -->
+  <input type="range" id="intensity" min="1" max="3" value="2">
+  <div class="intensity-label">Soft ← → Intense</div>
+
   <button onclick="getQuote()">Give me words</button>
   <button onclick="describeHer()">Describe her 🌙</button>
 
   <div class="quote" id="quote"></div>
 </div>
 
-<script type="module">
+<script>
 
 function random(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function build(opening, middle, contrast, ending) {
+  return { opening, middle, contrast, ending };
+}
+
+function getIntensity() {
+  return parseInt(document.getElementById("intensity").value);
+}
+
 window.getQuote = function () {
 
   const situation = document.getElementById("situation").value;
+  const intensity = getIntensity();
 
   const engine = {
 
-    beauty: [
-      "Her beauty is quiet — it doesn’t demand attention, it earns it.",
-      "She doesn’t try to shine — she simply exists, and light follows.",
-      "There’s something rare in the way she carries herself.",
-      "Her presence feels softer than words.",
-      "She glows most when she isn’t trying."
-    ],
+    romantic: build(
+      ["Love doesn’t rush.", "Real connection arrives quietly.", "Some hearts meet softly."],
+      ["It steadies the chaos.", "It feels safe.", "It calms the ego."],
+      ["Even when distance tries,", "Despite fear,", "While the world confuses intensity for love,"],
+      ["it remains.", "it stays.", "it chooses calm."]
+    ),
 
-    love: [
-      "Love feels safe, not loud.",
-      "Real love calms the nervous system.",
-      "Love stays when ego leaves.",
-      "It’s not intensity — it’s consistency.",
-      "True love is steady."
-    ],
+    beauty: build(
+      ["Her beauty isn’t loud.", "She doesn’t perform.", "She doesn’t chase attention."],
+      ["It rests in her presence.", "It lives in her silence.", "It feels effortless."],
+      ["While others try too hard,", "Even without trying,", "Without asking for it,"],
+      ["she glows.", "she lingers.", "she stands apart."]
+    ),
 
-    longing: [
-      "Missing someone is a quiet kind of ache.",
-      "Longing teaches patience in silence.",
-      "Distance doesn’t erase connection.",
-      "Some absences feel louder than presence.",
-      "You can feel someone even when they aren’t near."
-    ],
+    love: build(
+      ["Real love feels steady.", "True affection is calm.", "Love isn’t chaos."],
+      ["It reassures quietly.", "It protects gently.", "It doesn’t compete."],
+      ["Even when pride interferes,", "Despite doubt,", "While emotions fluctuate,"],
+      ["it holds.", "it stays.", "it remains grounded."]
+    ),
 
-    heartbreak: [
-      "Some endings echo for a long time.",
-      "Healing doesn’t follow a schedule.",
-      "Heartbreak humbles the ego.",
-      "Not every goodbye is loud.",
-      "Sometimes love leaves lessons."
-    ],
+    longing: build(
+      ["Missing someone is quiet.", "Absence feels heavy.", "Longing stretches time."],
+      ["It deepens memory.", "It softens the heart.", "It echoes in silence."],
+      ["Even in distance,", "Despite pretending to move on,", "While staying strong outside,"],
+      ["the feeling lingers.", "it returns.", "it remains."]
+    ),
 
-    calm: [
-      "Peace is underrated strength.",
-      "Calm minds make powerful decisions.",
-      "Stillness carries clarity.",
-      "Chaos is loud — calm is controlled.",
-      "True strength feels steady."
-    ],
+    heartbreak: build(
+      ["Not all endings scream.", "Some goodbyes whisper.", "Heartbreak humbles."],
+      ["It reshapes identity.", "It forces reflection.", "It strips illusions."],
+      ["Even when pride resists,", "Despite denial,", "While pretending strength,"],
+      ["clarity forms.", "growth begins.", "pain teaches."]
+    ),
 
-    ambition: [
-      "Ambition whispers before it roars.",
-      "Dream quietly. Build relentlessly.",
-      "Discipline feeds ambition.",
-      "You don’t chase — you construct.",
-      "The grind shapes identity."
-    ],
+    philosophical: build(
+      ["Fear speaks first.", "Time never rushes.", "Wisdom grows slowly."],
+      ["Truth whispers.", "Meaning takes patience.", "Clarity requires discomfort."],
+      ["While ego demands certainty,", "Even when confusion dominates,", "Though doubt feels safer,"],
+      ["understanding waits.", "growth unfolds.", "truth survives."]
+    ),
 
-    hard: [
-      "Hard times reveal hidden strength.",
-      "Pressure builds resilience.",
-      "Storms don’t last — growth does.",
-      "Survival teaches perspective.",
-      "Pain often prepares."
-    ],
+    calm: build(
+      ["Peace is strength.", "Stillness carries power.", "Calm isn’t weakness."],
+      ["It sharpens awareness.", "It stabilizes emotion.", "It grounds decisions."],
+      ["Even in chaos,", "Despite noise,", "While pressure builds,"],
+      ["it centers you.", "it steadies you.", "it protects you."]
+    ),
 
-    inspiring: [
-      "Keep going — even slowly.",
-      "Your effort matters more than applause.",
-      "Start before you feel ready.",
-      "Small wins compound.",
-      "You’re closer than you think."
-    ],
+    ambition: build(
+      ["Ambition whispers first.", "Dreams grow quietly.", "Vision requires patience."],
+      ["Discipline feeds it.", "Consistency shapes it.", "Effort protects it."],
+      ["While others hesitate,", "Even when unseen,", "Despite slow results,"],
+      ["it builds.", "it compounds.", "it strengthens."]
+    ),
 
-    realistic: [
-      "Motivation fades. Discipline stays.",
-      "Nobody sees the boring work.",
-      "Progress is repetitive.",
-      "Comfort delays growth.",
-      "Consistency wins quietly."
-    ],
+    hard: build(
+      ["Hard times test identity.", "Pressure reveals truth.", "Storms expose character."],
+      ["Resilience forms privately.", "Strength grows unseen.", "Endurance reshapes you."],
+      ["Even when quitting tempts,", "Despite exhaustion,", "While doubt screams,"],
+      ["you rise.", "you adapt.", "you endure."]
+    ),
 
-    romantic: [
-      "Love feels safe, not chaotic.",
-      "True connection is calm.",
-      "Affection doesn’t compete.",
-      "Some hearts just understand.",
-      "Real intimacy is quiet."
-    ],
+    realistic: build(
+      ["Motivation fades.", "Nobody applauds routine.", "Discipline feels repetitive."],
+      ["Consistency builds identity.", "Progress hides in repetition.", "Improvement looks boring."],
+      ["While others wait to feel ready,", "Even when it feels pointless,", "Though results are slow,"],
+      ["it compounds.", "it wins.", "it matters."]
+    ),
 
-    philosophical: [
-      "Fear shouts. Truth whispers.",
-      "Time exposes illusions.",
-      "Wisdom grows in silence.",
-      "Meaning takes patience.",
-      "Clarity requires discomfort."
-    ],
+    inspiring: build(
+      ["Keep going.", "Start anyway.", "Move forward."],
+      ["Momentum builds.", "Effort accumulates.", "Progress forms quietly."],
+      ["Even when unnoticed,", "Despite doubt,", "While others pause,"],
+      ["you grow.", "you evolve.", "you advance."]
+    ),
 
-    direct: [
-      "Stop waiting.",
-      "Act now.",
-      "Excuses delay destiny.",
-      "Discipline or regret.",
-      "Move."
-    ],
+    direct: build(
+      ["Stop waiting.", "Decide now.", "Move."],
+      ["Excuses delay growth.", "Action removes doubt.", "Fear exaggerates risk."],
+      ["Time won’t pause,", "Opportunity won’t beg,", "No one is coming,"],
+      ["act.", "move.", "change."]
+    ),
 
-    expressive: [
-      "Feeling deeply is strength.",
-      "Vulnerability is power.",
-      "Raw truth carries beauty.",
-      "Expression is courage.",
-      "Soft hearts are brave."
-    ]
+    expressive: build(
+      ["Feeling deeply is strength.", "Vulnerability is rare courage.", "Emotion reveals depth."],
+      ["Honesty feels heavy.", "Intensity is misunderstood.", "Softness is power."],
+      ["Even when judged,", "Despite misunderstanding,", "While hiding feels easier,"],
+      ["express it.", "own it.", "embrace it."]
+    )
 
   };
 
-  const quote = random(engine[situation]);
-  document.getElementById("quote").innerText = quote;
+  const data = engine[situation];
+
+  let quote;
+
+  if (intensity === 1) {
+    quote = random(data.opening) + " " + random(data.middle);
+  } else if (intensity === 2) {
+    quote = random(data.opening) + " " + random(data.middle) + " " + random(data.ending);
+  } else {
+    quote = random(data.opening) + " " + random(data.middle) + " " + random(data.contrast) + " " + random(data.ending);
+  }
+
+  const box = document.getElementById("quote");
+
+  box.style.opacity = 0;
+  setTimeout(() => {
+    box.innerText = quote;
+    box.style.opacity = 1;
+  }, 200);
 
 };
-
 
 
 window.describeHer = function () {
 
   const mood = document.getElementById("herMood").value.trim();
   const nature = document.getElementById("herNature").value.trim();
+  const intensity = getIntensity();
 
   if (!mood && !nature) {
     document.getElementById("quote").innerText =
@@ -227,20 +251,17 @@ window.describeHer = function () {
     return;
   }
 
-  const variations = [
-    `She feels ${mood || "unspoken"} — and her ${nature || "presence"} makes silence meaningful.`,
-    `There’s something ${nature || "rare"} about her.`,
-    `Her ${nature || "energy"} reveals itself when she’s ${mood || "quiet"}.`,
-    `She carries ${mood || "stillness"} softly.`,
-    `Her ${nature || "strength"} doesn’t need noise.`,
-    `Even in her ${mood || "silence"}, her ${nature || "warmth"} speaks.`,
-    `She feels ${mood || "present"} — and it changes the room.`,
-    `Her ${nature || "depth"} shows when she’s ${mood || "calm"}.`,
-    `She doesn’t perform — she simply is.`,
-    `Her ${mood || "gentle"} presence feels rare.`
-  ];
+  let line;
 
-  document.getElementById("quote").innerText = random(variations);
+  if (intensity === 1) {
+    line = `She feels ${mood || "quiet"}, and her ${nature || "presence"} is gentle.`;
+  } else if (intensity === 2) {
+    line = `She feels ${mood || "present"}, and her ${nature || "energy"} changes the room without trying.`;
+  } else {
+    line = `Even when she feels ${mood || "lost"}, her ${nature || "depth"} commands attention without asking for it.`;
+  }
+
+  document.getElementById("quote").innerText = line;
 
 };
 
